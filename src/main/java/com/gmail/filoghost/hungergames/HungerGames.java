@@ -40,7 +40,6 @@ import java.util.Random;
 import java.util.Set;
 
 import lombok.Getter;
-import net.cubespace.yamler.YamlerConfigurationException;
 
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
@@ -58,6 +57,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import org.yaml.snakeyaml.error.YAMLException;
 import wild.api.WildCommons;
 import wild.api.bridges.BoostersBridge;
 import wild.api.bridges.BoostersBridge.Booster;
@@ -172,15 +172,14 @@ public class HungerGames extends JavaPlugin {
 		try {
 			settings = new Settings();
 			settings.init();
-		} catch (YamlerConfigurationException e) {
+		} catch (net.cubespace.Yamler.Config.InvalidConfigurationException e) {
 			e.printStackTrace();
 			logPurple("config.yml non caricato! Spegnimento server fra 10 secondi...");
 			WildCommons.pauseThread(10000);
 			Bukkit.shutdown();
-			return;
-		}
-		
-		// Mappe
+        }
+
+        // Mappe
 		File mapsFolder = new File(settings.mapsFolder);
 		
 		if (!mapsFolder.isDirectory()) {
@@ -268,13 +267,13 @@ public class HungerGames extends JavaPlugin {
 		// File di aiuto
 		try {
 			new HelpFile().init();
-		} catch (YamlerConfigurationException e) {
+		} catch (net.cubespace.Yamler.Config.InvalidConfigurationException e) {
 			e.printStackTrace();
 			logPurple("help.yml non caricato!");
 		}
-		
-		
-		// Database MySQL
+
+
+        // Database MySQL
 		try {
 			SQLManager.connect(settings.mysql_host, settings.mysql_port, settings.mysql_database, settings.mysql_user, settings.mysql_pass);
 			SQLManager.checkConnection();

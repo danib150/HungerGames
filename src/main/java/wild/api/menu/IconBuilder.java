@@ -25,52 +25,84 @@
  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-package com.gmail.filoghost.hungergames.files;
+*/
+package wild.api.menu;
 
-import java.util.Arrays;
 import java.util.List;
 
-import com.gmail.filoghost.hungergames.HungerGames;
-import net.cubespace.Yamler.Config.YamlConfig;
-import org.yaml.snakeyaml.Yaml;
+import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 
+public class IconBuilder {
 
-public class Settings extends YamlConfig {
-
-	public Settings() {
-		super("config.yml");
+	Icon icon;
+	
+	public IconBuilder() {
+		icon = new Icon();
 	}
 	
-	public int startCountdown = 300;
-	public int gameMinutes = 15;
-	public int invincibility = 60;
-	public int minPlayers = 5;
+	public IconBuilder(Material mat) {
+		icon = new Icon(mat);
+	}
 	
-	// Protezione
-	public List<String> protectedBlocks = Arrays.asList("Glass", "Iron block", "Gold block", "Emerald block", "Diamond block");
+	public IconBuilder material(Material mat) {
+		icon.setMaterial(mat);
+		return this;
+	}
 	
-	public String mapsFolder = "../hg_maps";
+	public IconBuilder name(String name) {
+		icon.setName(name);
+		return this;
+	}
 	
-	// Mondi
-	public String difficulty = "hard";
-	public boolean randomWorlds_enable = true;
-	public int randomWorlds_border = 300;
-	public List<String> maps = Arrays.asList("world_name, 200", "another_world, 400");
+	public IconBuilder lore(String... lore) {
+		icon.setLore(lore);
+		return this;
+	}
 	
-	public int coins_win = 5;
-	public int coins_kill = 1;
+	public IconBuilder lore(List<String> lore) {
+		icon.setLore(lore);
+		return this;
+	}
 	
-	public List<String> cornucopia = Arrays.asList("bread, 1-5, 50%, same slot", "arrow, 0-12, 100%, random");
+	public IconBuilder amount(int amount) {
+		icon.setAmount(amount);
+		return this;
+	}
 	
-	public List<String> spectatorCommandBlacklist = Arrays.asList("/msg", "/m", "/tell", "/t", "/whisper", "/w");
+	public IconBuilder dataValue(int dataValue) {
+		icon.setDataValue((short) dataValue);
+		return this;
+	}
 	
-	public String mysql_host = "localhost";
-	public String mysql_database = "database";
-	public String mysql_user = "root";
-	public String mysql_pass = "toor";
-	public int mysql_port = 3306;
+	public IconBuilder glow() {
+		icon.addEnchantment(Enchantment.DURABILITY);
+		return this;
+	}
 	
-	public boolean pregameBlockMovement = false;
+	public IconBuilder skullOwner(String skullOwner) {
+		icon.setSkullOwner(skullOwner);
+		return this;
+	}
+	
+	public IconBuilder clickHandler(ClickHandler clickHandler) {
+		icon.setClickHandler(clickHandler);
+		return this;
+	}
+
+	
+	public IconBuilder metaModifier(MetaModifier metaModifier) {
+		icon.setMetaModifier(metaModifier);
+		return this;
+	}
+
+	public IconBuilder closeOnClick(boolean closeOnClick) {
+		icon.setCloseOnClick(closeOnClick);
+		return this;
+	}
+	
+	public Icon build() {
+		return icon;
+	}
 	
 }

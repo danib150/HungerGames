@@ -25,52 +25,39 @@
  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+package wild.api.menu;
+
+import org.bukkit.Bukkit;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
+
+/**
+ * This class links an IconMenu with an Inventory, via InventoryHolder.
  */
-package com.gmail.filoghost.hungergames.files;
+public class MenuInventoryHolder implements InventoryHolder {
 
-import java.util.Arrays;
-import java.util.List;
-
-import com.gmail.filoghost.hungergames.HungerGames;
-import net.cubespace.Yamler.Config.YamlConfig;
-import org.yaml.snakeyaml.Yaml;
-
-
-public class Settings extends YamlConfig {
-
-	public Settings() {
-		super("config.yml");
+	private IconMenu iconMenu;
+	
+	public MenuInventoryHolder(IconMenu iconMenu) {
+		this.iconMenu = iconMenu;
 	}
 	
-	public int startCountdown = 300;
-	public int gameMinutes = 15;
-	public int invincibility = 60;
-	public int minPlayers = 5;
+	@Override
+	public Inventory getInventory() {
+		// This inventory will not do anything.
+		// I'm 90% sure that it doesn't break any other plugin,
+		// because the only way you can get here is using InventoryClickEvent,
+		// that is cancelled by this plugin.
+		return Bukkit.createInventory(null, 9);
+	}
 	
-	// Protezione
-	public List<String> protectedBlocks = Arrays.asList("Glass", "Iron block", "Gold block", "Emerald block", "Diamond block");
+	public IconMenu getIconMenu() {
+		return iconMenu;
+	}
 	
-	public String mapsFolder = "../hg_maps";
-	
-	// Mondi
-	public String difficulty = "hard";
-	public boolean randomWorlds_enable = true;
-	public int randomWorlds_border = 300;
-	public List<String> maps = Arrays.asList("world_name, 200", "another_world, 400");
-	
-	public int coins_win = 5;
-	public int coins_kill = 1;
-	
-	public List<String> cornucopia = Arrays.asList("bread, 1-5, 50%, same slot", "arrow, 0-12, 100%, random");
-	
-	public List<String> spectatorCommandBlacklist = Arrays.asList("/msg", "/m", "/tell", "/t", "/whisper", "/w");
-	
-	public String mysql_host = "localhost";
-	public String mysql_database = "database";
-	public String mysql_user = "root";
-	public String mysql_pass = "toor";
-	public int mysql_port = 3306;
-	
-	public boolean pregameBlockMovement = false;
-	
+	public void setIconMenu(IconMenu iconMenu) {
+		this.iconMenu = iconMenu;
+	}
+
 }

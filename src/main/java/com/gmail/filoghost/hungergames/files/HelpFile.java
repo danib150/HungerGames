@@ -30,19 +30,17 @@ package com.gmail.filoghost.hungergames.files;
 
 import java.util.List;
 
-import net.cubespace.yamler.Comment;
-import net.cubespace.yamler.YamlerConfig;
-
+import net.cubespace.Yamler.Config.Comment;
+import net.cubespace.Yamler.Config.YamlConfig;
 import org.bukkit.potion.PotionEffectType;
 
-import com.gmail.filoghost.hungergames.HungerGames;
 import com.gmail.filoghost.hungergames.player.Skill;
 import com.google.common.collect.Lists;
 
-public class HelpFile extends YamlerConfig {
+public class HelpFile extends YamlConfig {
 
 	public HelpFile() {
-		super(HungerGames.getInstance(), "help.yml");
+		super("help.yml");
 		
 		for (PotionEffectType type : PotionEffectType.values()) {
 			if (type != null) {
