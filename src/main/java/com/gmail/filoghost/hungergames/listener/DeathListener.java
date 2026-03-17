@@ -34,6 +34,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
 
+import com.gmail.filoghost.boosters.bridges.BoostersBridge;
 import lombok.Getter;
 
 import org.bukkit.Bukkit;
@@ -50,8 +51,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
-import wild.api.bridges.BoostersBridge;
-import wild.api.bridges.BoostersBridge.Booster;
 import wild.api.sound.EasySound;
 import wild.api.world.Particle;
 
@@ -131,7 +130,7 @@ public class DeathListener implements Listener {
 		if (message == null) message = "";
 		
 		if (hKiller != null && hKiller.getStatus() == Status.TRIBUTE && hKiller != hVictim) {
-			Booster booster = BoostersBridge.getActiveBooster(HungerGames.PLUGIN_ID);
+			BoostersBridge.Booster booster = BoostersBridge.getActiveBooster(HungerGames.PLUGIN_ID);
 			EasySound.quickPlay(hKiller.getPlayer(), Sound.ORB_PICKUP);
 			final int coins = BoostersBridge.applyMultiplier(HungerGames.getSettings().coins_kill, booster);
 

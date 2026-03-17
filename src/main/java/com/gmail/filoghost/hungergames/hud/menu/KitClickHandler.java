@@ -37,6 +37,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 import wild.api.menu.ClickHandler;
+import wild.api.sound.EasySound;
 
 import com.gmail.filoghost.hungergames.GameState;
 import com.gmail.filoghost.hungergames.HungerGames;
@@ -109,8 +110,8 @@ public class KitClickHandler implements ClickHandler {
 				hGamer.setBoughtKit(kit);
 			}
 		}
-		player.playSound(player.getLocation(), Sound.NOTE_PLING, 2.0f, 1);
-
+		
+		EasySound.quickPlay(player, Sound.NOTE_PLING, 2.0f);
 		hGamer.setKit(kit);
 		hGamer.sendMessage(ChatColor.GRAY + "Hai scelto il kit " + kit.getColorPrefix() + kit.getName() + extra);
 	}

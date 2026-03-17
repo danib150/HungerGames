@@ -32,14 +32,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.gmail.filoghost.hungergames.HungerGames;
-import net.cubespace.Yamler.Config.YamlConfig;
-import org.yaml.snakeyaml.Yaml;
 
+import net.cubespace.yamler.YamlerConfig;
 
-public class Settings extends YamlConfig {
+public class Settings extends YamlerConfig {
 
 	public Settings() {
-		super("config.yml");
+		super(HungerGames.getInstance(), "config.yml", "Configurazione del plugin HungerGames", "Scritto da filoghost");
 	}
 	
 	public int startCountdown = 300;

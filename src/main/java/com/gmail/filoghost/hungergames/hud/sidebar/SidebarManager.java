@@ -40,6 +40,7 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
 import wild.api.WildCommons;
+import wild.api.WildConstants;
 
 import com.gmail.filoghost.hungergames.GameState;
 import com.gmail.filoghost.hungergames.HungerGames;
@@ -82,7 +83,7 @@ public class SidebarManager {
 		setScore(SMALL_TITLE_PREFIX + "Uccisioni:", 3);
 		String killsEntry = setScore(emptyLine(2), 2);
 		setScore(emptyLine(1), 1);
-		setScore("", 0);
+		WildConstants.Messages.displayIP(scoreboard, side, 0);
 		
 		// Crea i team per i prefissi
 		timeTeam = createSafeTeam("time");

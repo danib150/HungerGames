@@ -39,7 +39,9 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import com.gmail.filoghost.boosters.bridges.BoostersBridge;
 import lombok.Getter;
+import net.cubespace.yamler.YamlerConfigurationException;
 
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
@@ -57,10 +59,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import org.yaml.snakeyaml.error.YAMLException;
 import wild.api.WildCommons;
-import wild.api.bridges.BoostersBridge;
-import wild.api.bridges.BoostersBridge.Booster;
 import wild.api.config.PluginConfig;
 import wild.api.item.BookTutorial;
 import wild.api.item.ItemBuilder;
@@ -172,14 +171,15 @@ public class HungerGames extends JavaPlugin {
 		try {
 			settings = new Settings();
 			settings.init();
-		} catch (net.cubespace.Yamler.Config.InvalidConfigurationException e) {
+		} catch (YamlerConfigurationException e) {
 			e.printStackTrace();
 			logPurple("config.yml non caricato! Spegnimento server fra 10 secondi...");
 			WildCommons.pauseThread(10000);
 			Bukkit.shutdown();
-        }
-
-        // Mappe
+			return;
+		}
+		
+		// Mappe
 		File mapsFolder = new File(settings.mapsFolder);
 		
 		if (!mapsFolder.isDirectory()) {
@@ -267,13 +267,13 @@ public class HungerGames extends JavaPlugin {
 		// File di aiuto
 		try {
 			new HelpFile().init();
-		} catch (net.cubespace.Yamler.Config.InvalidConfigurationException e) {
+		} catch (YamlerConfigurationException e) {
 			e.printStackTrace();
 			logPurple("help.yml non caricato!");
 		}
-
-
-        // Database MySQL
+		
+		
+		// Database MySQL
 		try {
 			SQLManager.connect(settings.mysql_host, settings.mysql_port, settings.mysql_database, settings.mysql_user, settings.mysql_pass);
 			SQLManager.checkConnection();
@@ -599,7 +599,7 @@ public class HungerGames extends JavaPlugin {
 				stopServer(ChatColor.RED + "Non c'è stato nessun vincitore, riavvio del server.");
 				
 			} else {
-				Booster booster = BoostersBridge.getActiveBooster(PLUGIN_ID);
+				BoostersBridge.Booster booster = BoostersBridge.getActiveBooster(PLUGIN_ID);
 				final int coins = BoostersBridge.applyMultiplier(UnitUtils.getWinCoins(winner.getPlayer()), booster);
 				
 				for (HGamer other : HungerGames.getAllGamersUnsafe()) {

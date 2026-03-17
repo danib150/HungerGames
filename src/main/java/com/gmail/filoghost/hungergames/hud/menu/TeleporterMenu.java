@@ -40,6 +40,8 @@ import com.gmail.filoghost.hungergames.HungerGames;
 import com.gmail.filoghost.hungergames.player.Status;
 
 import wild.api.WildCommons;
+import wild.api.bridges.PexBridge;
+import wild.api.bridges.PexBridge.PrefixSuffix;
 import wild.api.menu.Icon;
 import wild.api.menu.IconMenu;
 import wild.api.menu.StaticIcon;
@@ -63,9 +65,14 @@ public class TeleporterMenu {
 			ItemStack item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
 			SkullMeta itemMeta = (SkullMeta) item.getItemMeta();
 			itemMeta.setOwner(tribute.getName());
-
-			itemMeta.setDisplayName(ChatColor.WHITE + tribute.getName());
-
+			
+			if (HungerGames.isWildChat()) {
+				PrefixSuffix prefixSuffix = PexBridge.getCachedPrefixSuffix(tribute);
+				itemMeta.setDisplayName(ChatColor.WHITE + WildCommons.color(prefixSuffix.getPrefix() + tribute.getName() + prefixSuffix.getSuffix()));
+			} else {
+				itemMeta.setDisplayName(ChatColor.WHITE + tribute.getName());
+			}
+			
 			item.setItemMeta(itemMeta);
 			final Icon icon = new StaticIcon(item);
 			icon.setClickHandler(new TeleportClickHandler(tribute.getName()));

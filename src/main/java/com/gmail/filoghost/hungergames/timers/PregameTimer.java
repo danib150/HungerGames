@@ -42,7 +42,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 
-import wild.api.bridges.CosmeticsBridge;
 import wild.api.sound.EasySound;
 
 import com.gmail.filoghost.hungergames.GameState;
@@ -114,7 +113,6 @@ public class PregameTimer extends TimerMaster {
 			for (HGamer tribute : HungerGames.getAllGamersUnsafe()) {
 				
 				if (tribute.getStatus() == Status.TRIBUTE) {
-					CosmeticsBridge.updateCosmetics(tribute.getPlayer(), CosmeticsBridge.Status.GAME);
 					tribute.cleanCompletely(GameMode.SURVIVAL);
 					tribute.teleportDismount(HungerGames.getHighestSpawn());
 					

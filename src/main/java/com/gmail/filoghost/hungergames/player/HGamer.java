@@ -46,7 +46,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import wild.api.WildConstants;
-import wild.api.bridges.CosmeticsBridge;
 import wild.api.world.SpectatorAPI;
 
 import com.gmail.filoghost.hungergames.HungerGames;
@@ -211,16 +210,13 @@ public class HGamer {
 	public void givePregameStuff() {
 		HungerGames.getBookTutorial().giveTo(player);
 		player.getInventory().addItem(HungerGames.getKitSelector());
-		
-		CosmeticsBridge.giveCosmeticsItems(player.getInventory());
-		CosmeticsBridge.updateCosmetics(player, CosmeticsBridge.Status.LOBBY);
+
 	}
 	
 	public void giveSpectatorStuff() {
 		player.getInventory().addItem(WildConstants.Spectator.TELEPORTER);
 		player.getInventory().setItem(8, WildConstants.Spectator.BACK_TO_HUB);
 		
-		CosmeticsBridge.updateCosmetics(player, CosmeticsBridge.Status.SPECTATOR);
 	}
 	
 	public void createTeam() {

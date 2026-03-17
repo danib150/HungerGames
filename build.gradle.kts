@@ -7,22 +7,42 @@ plugins {
 
 repositories {
     mavenCentral()
-    maven("https://maven.pkg.github.com/Electroid/SportPaper") {
-        name = "SportPaper"
+
+    maven {
+        name = "WildCommons"
+        url = uri("https://maven.pkg.github.com/danib150/WildCommons")
+
         credentials {
-            username = project.findProperty("gpr.user")?.toString()
-            password = project.findProperty("gpr.key")?.toString()
+            username = providers.gradleProperty("gpr.user").orNull
+                ?: System.getenv("GITHUB_ACTOR")
+            password = providers.gradleProperty("gpr.key").orNull
+                ?: System.getenv("GITHUB_TOKEN")
+        }
+    }
+
+    maven {
+        name = "SportPaper"
+        url = uri("https://maven.pkg.github.com/Electroid/SportPaper")
+
+        credentials {
+            username = providers.gradleProperty("gpr.user").orNull
+                ?: System.getenv("GITHUB_ACTOR")
+            password = providers.gradleProperty("gpr.key").orNull
+                ?: System.getenv("GITHUB_TOKEN")
         }
     }
 
 
-    maven("https://maven.pkg.github.com/danib150/Yamler") {
-        name = "Yamler"
-        credentials {
-            username = project.findProperty("gpr.user")?.toString()
-            password = project.findProperty("gpr.key")?.toString()
-        }
+    maven {
+        name = "SportPaper"
+        url = uri("https://maven.pkg.github.com/danib150/Boosters")
 
+        credentials {
+            username = providers.gradleProperty("gpr.user").orNull
+                ?: System.getenv("GITHUB_ACTOR")
+            password = providers.gradleProperty("gpr.key").orNull
+                ?: System.getenv("GITHUB_TOKEN")
+        }
     }
 
 }
@@ -31,7 +51,8 @@ dependencies {
     compileOnly("org.projectlombok:lombok:1.18.44")
     annotationProcessor("org.projectlombok:lombok:1.18.44")
     compileOnly("app.ashcon:sportpaper:1.8.8-R0.1-SNAPSHOT")
-    compileOnly("io.github.danib150:yamler-core:2.4.3")
+    compileOnly("it.danielebruni.wildadventure:wildcommons-core:1.0.1")
+    compileOnly("io.github.danib150:boosters:1.0-SNAPSHOT")
 }
 
 java {
